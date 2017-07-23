@@ -7,7 +7,7 @@ body {
   font-family: "Open Sans", Open Sans, sans-serif; }
   body::after {
     content: '';
-    background: #666 url(assets/ballz-bg.jpg) no-repeat fixed center top;
+    background: #666 url("https://github.com/ballzehh/MAL/raw/master/assets/ballz-bg.jpg") no-repeat fixed center top;
     background-size: cover;
     position: fixed;
     top: 0;

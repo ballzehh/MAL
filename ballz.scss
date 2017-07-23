@@ -1,3 +1,13 @@
+
+$DEVMODE: false;
+
+$bg_url: null;
+@if $DEVMODE == true {
+  $bg_url: 'assets/ballz-bg.jpg';
+} @else {
+  $bg_url: 'https://github.com/ballzehh/MAL/raw/master/assets/ballz-bg.jpg';
+}
+
 //Palette
 $color_light: #FFFFFF, #F0E1B6, #CDB694;
 $color_hot: #F2E632, #FB9952, #D71F03;
@@ -8,7 +18,7 @@ $color_primary: nth($color_purple, 1);
 
 $body_color: #666;
 $body_darken_color: #FFF;
-$body_bg: #666 url(assets/ballz-bg.jpg) no-repeat fixed center top;
+$body_bg: #666 url($bg_url) no-repeat fixed center top;
 $body_font-family: 'Open Sans', Open Sans, sans-serif;
 
 $a_color: $color_primary;
