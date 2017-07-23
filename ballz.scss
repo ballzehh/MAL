@@ -1,4 +1,319 @@
+//Palette
+$color_light: #FFFFFF, #F0E1B6, #CDB694;
+$color_hot: #F2E632, #FB9952, #D71F03;
+$color_purple: #301F49, #79046D, #D9004E;
+$color_turquoise: #94E5A0, #4ACDBB, #0A8D30;
 
-.todo {
-  color: red;
+$color_primary: nth($color_purple, 1);
+
+$body_color: #666;
+$body_darken_color: #FFF;
+$body_bg: #666 url(assets/ballz-bg.jpg) no-repeat fixed center top;
+$body_font-family: 'Open Sans', Open Sans, sans-serif;
+
+$a_color: $color_primary;
+
+$page_width: 800px;
+$page_width_big: 40%;
+
+$header_color: #fff;
+$header_bg: rgba(nth($color_light, 3), .5);
+
+$listContainer_bg: transparent;
+
+$statusMenu_color: #fff;
+$statusMenu_bg: darken(nth($color_light, 3), 10%);
+
+$listBlock_color: #333;
+$listBlock_bg: transparent;
+
+$listStatusTitle_color: #fff;
+$listStatusTitle_bg: #339;
+
+$table_color: $body_color;
+$table_bg: transparent;
+$table_space_between_row: 0em;
+$table_row_color: $body_color;
+$table_row_even_bg: nth($color_light, 1);
+$table_row_odd_bg: lighten(nth($color_light, 2), 10%);
+
+$footer_bg: nth($color_purple, 1);
+
+@mixin chnapbut($bg, $color : $body_darken_color) {
+  background: $bg;
+  border: 1px solid darken($bg, 5%);
+  color: $color;
+  text-shadow: 0 -1px darken($bg, 5%);
+  box-shadow: inset 0 1px rgba(255, 255, 255, .1);
+  padding: .0em .25em;
+  text-decoration: none;
+  margin: 1px;
+
+  &:hover {
+    background: lighten($bg, 5%);
+  }
+
+  &:active {
+    background: darken($bg, 5%);
+  }
+}
+
+//@font-face {
+//  font-family: 'JapaneseBrush';
+//  src: url('font/JapaneseBrush.eot?#iefix') format('embedded-opentype'), url('font/JapaneseBrush.woff') format('woff'), url('font/JapaneseBrush.ttf') format('truetype'), url('font/JapaneseBrush.svg#JapaneseBrush') format('svg');
+//  font-weight: normal;
+//  font-style: normal;
+//}
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800');
+
+a {
+  color: $a_color;
+}
+
+body {
+  color: $body_color;
+  font-family: $body_font-family;
+
+  &::after {
+    content: '';
+    background: $body_bg;
+    background-size: cover;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+    //TODO
+    animation-name: grayscale;
+    animation-duration: 10s;
+  }
+
+  @keyframes grayscale {
+    from {
+      filter: grayscale(1);
+    }
+    to {
+      filter: grayscale(0);
+    }
+  }
+}
+
+.header {
+  color: $header_color;
+  background: $header_bg;
+
+  width: $page_width;
+  @media screen and (min-width: 1600px) {
+    width: $page_width_big;
+  }
+
+  .header-title {
+    margin-left: 1em;
+  }
+}
+
+#list-container {
+  background: $listContainer_bg;
+  border: none;
+
+  width: $page_width;
+  @media screen and (min-width: 1600px) {
+    width: $page_width_big;
+  }
+}
+
+#status-menu {
+  background: $statusMenu_bg;
+  border-bottom: none;
+  height: auto;
+  width: auto;
+
+  .status-menu {
+    border-spacing: 20px 0;
+
+    .status-button {
+      color: $statusMenu_color;
+      font-family: inherit;
+      font-size: 1.2em;
+      padding: .75em 1em;
+
+      &.on {
+        background: rgba(white, .1);
+      }
+
+      &:after {
+        content: none;
+      }
+    }
+  }
+}
+
+.list-block {
+  color: $listBlock_color;
+  background: $listBlock_bg;
+
+  .list-unit, .list-status-title, .list-status-title .text {
+    width: 100%;
+  }
+
+  .list-unit, .list-status-title, .list-status-title .text, .list-status-title .stats {
+    height: auto;
+    line-height: normal;
+  }
+
+  .list-status-title, .list-stats {
+    //background: $color_primary;
+    font-size: inherit;
+  }
+
+  .list-status-title .text {
+    font-size: 1.2em;
+    font-weight: normal;
+    font-family: inherit;
+  }
+}
+
+.list-block .list-status-title, .list-block .list-stats {
+  background-color: $color_primary;
+}
+
+.list-status-title {
+  color: $listStatusTitle_color;
+  background: $listStatusTitle_bg;
+}
+
+.list-table {
+  color: $table_color;
+  background: $table_bg;
+  border: none;
+
+  tbody:not(.list-item):first-child {
+    background: none;
+  }
+
+  .list-table-header .header-title {
+    background: $color_primary;
+    color: $body_darken_color;
+    border-bottom: none;
+    height: 2em;
+
+    .link, .link.sort {
+      color: inherit;
+    }
+  }
+
+  .list-item {
+    background: transparent !important;
+
+    &::after {
+      content: ' ';
+      display: table-row;
+      height: $table_space_between_row;
+    }
+
+    &:nth-of-type(odd) {
+      > .list-table-data, > .more-info {
+        background: rgba($table_row_odd_bg, .75);
+        //border-bottom: 1px solid $table_row_odd_bg;
+      }
+
+      .list-table-data .data.score .link {
+        background: rgba($table_row_odd_bg, .5);
+      }
+    }
+    &:nth-of-type(even) {
+      > .list-table-data, > .more-info {
+        background: rgba($table_row_even_bg, .75);
+        //border-bottom: 1px solid $table_row_even_bg;
+      }
+
+      .list-table-data .data.score .link {
+        background: rgba($table_row_even_bg, .5);
+      }
+    }
+
+    .data {
+      border-bottom: none;
+
+      .link.sort {
+        max-height: 1000px;
+        transition: .4s;
+      }
+
+      &.image .image {
+        border: none;
+      }
+
+      &.title .add-edit-more {
+        color: transparent;
+        > .edit > a, > .add > a {
+          @include chnapbut(nth($color_hot, 3));
+        }
+        > .more > a {
+          @include chnapbut(nth($color_hot, 2));
+        }
+      }
+
+      &.progress span a.link {
+        @include chnapbut(nth($color_purple, 3));
+      }
+
+      &.studio span a {
+        @include chnapbut(nth($color_light, 2), $body_color);
+      }
+
+      &.tags {
+        color: transparent;
+
+        div span a {
+          @include chnapbut(nth($color_purple, 2));
+        }
+
+        .edit {
+          display: inline-block;
+          width: auto;
+          font-family: inherit;
+          @include chnapbut(nth($color_turquoise, 3));
+        }
+      }
+
+      &.status {
+        &.watching {
+          background-color: nth($color_turquoise, 3);
+        }
+
+        &.completed {
+          background-color: nth($color_turquoise, 2);
+        }
+
+        &.dropped {
+          background-color: nth($color_hot, 3);
+        }
+
+        &.onhold {
+          background-color: nth($color_hot, 1);
+        }
+
+        &.plantowatch {
+          background-color: nth($color_light, 3);
+        }
+      }
+    }
+
+    &:not(:hover) .data.image > .link.sort {
+      max-height: 24px;
+      overflow: hidden;
+    }
+    transition: 1s;
+  }
+}
+
+#footer-block {
+  background-color: $footer_bg;
+}
+
+#copyright::after {
+  content: 'Theme made by Chnapy :smirk:';
 }
